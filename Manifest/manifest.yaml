@@ -19,18 +19,20 @@ data:
   MYSQL_DATABASE: "bankappdb"
 ---
 # Storage Class for EBS
+# StorageClass for Azure Disk
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: ebs-sc
-provisioner: ebs.csi.aws.com
+# The provisioner defines the Azure CSI driver
+provisioner: disk.csi.azure.com
 parameters:
-  type: gp3
-  fsType: ext4
+  skuName: StandardSSD_LRS   # Disk type
+  kind: Managed
+  cachingMode: ReadWrite
 reclaimPolicy: Retain
 volumeBindingMode: WaitForFirstConsumer
----
-# Persistent Volume Claim for MySQL
+
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -39,10 +41,11 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: ebs-sc
+  storageClassName: ebs-sc   # Use your Azure Disk StorageClass
   resources:
     requests:
       storage: 5Gi
+
 ---
 # MySQL Deployment
 apiVersion: apps/v1
