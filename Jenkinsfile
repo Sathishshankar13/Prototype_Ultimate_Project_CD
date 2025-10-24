@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'git', url: 'https://github.com/jaiswaladi246/Mega-Project-CD.git'
+                git branch: 'main', credentialsId: 'git', url: 'https://github.com/Sathishshankar13/Prototype_Ultimate_Project_CD.git'
             }
         }
         
