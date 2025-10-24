@@ -20,31 +20,31 @@ data:
 ---
 # Storage Class for EBS
 # StorageClass for Azure Disk
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: ebs-sc
+#apiVersion: storage.k8s.io/v1
+#kind: StorageClass
+#metadata:
+  #name: ebs-sc
 # The provisioner defines the Azure CSI driver
-provisioner: disk.csi.azure.com
-parameters:
-  skuName: StandardSSD_LRS   # Disk type
-  kind: Managed
-  cachingMode: ReadWrite
-reclaimPolicy: Retain
-volumeBindingMode: WaitForFirstConsumer
-
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mysql-pvc
-  namespace: webapps
-spec:
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: ebs-sc   # Use your Azure Disk StorageClass
-  resources:
-    requests:
-      storage: 5Gi
+#provisioner: disk.csi.azure.com
+#parameters:
+  #skuName: StandardSSD_LRS   # Disk type
+  #kind: Managed
+  #cachingMode: ReadWrite
+#reclaimPolicy: Retain
+#volumeBindingMode: WaitForFirstConsumer
+---
+#apiVersion: v1
+#kind: PersistentVolumeClaim
+#metadata:
+  #name: mysql-pvc
+  #namespace: webapps
+#spec:
+  #accessModes:
+    #- ReadWriteOnce
+  #storageClassName: ebs-sc   # Use your Azure Disk StorageClass
+  #resources:
+    #requests:
+      #storage: 5Gi
 
 ---
 # MySQL Deployment
